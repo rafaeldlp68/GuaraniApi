@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.4</version> <!-- Define que o projeto usará a versão 3.3.4 do Spring Boot -->
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    
+    <groupId>com.example.guaraniapi</groupId>
+    <artifactId>GuaraniApi</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>GuaraniApi</name>
+    <description>Demo project for Spring Boot</description>
+    
+    <properties>
+        <java.version>17</java.version> <!-- Especifica que o projeto usará o Java 17 -->
+    </properties>
+
+    <dependencies>
+
+        <!-- Spring Data JPA: fornece suporte para persistência de dados com JPA/Hibernate -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        
+        <!-- Spring Web: permite criar APIs RESTful e manipular requisições HTTP -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Dependência para testes no Spring Boot: inclui suporte para testes unitários e de integração -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope> <!-- Limitada a testes -->
+            <exclusions>
+                <!-- Exclui o suporte ao JUnit Vintage, que não é mais necessário se você estiver usando JUnit 5 -->
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Driver do MySQL: permite que a aplicação Spring Boot conecte-se a um banco de dados MySQL -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>9.0.0</version> <!-- Versão do driver MySQL -->
+            <scope>runtime</scope> <!-- A dependência só é usada em tempo de execução -->
+        </dependency>
+
+        <!-- Lombok: gera automaticamente código repetitivo como getters, setters e construtores -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version> <!-- Versão do Lombok -->
+            <scope>provided</scope> <!-- Não inclui o Lombok no JAR final; ele é usado apenas em tempo de compilação -->
+        </dependency>
+
+        <!-- Bean Validation (JSR 303/380): permite validar os dados dos objetos com anotações como @NotBlank, @Email, etc. -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version> <!-- Versão da API de validação -->
+        </dependency>
+
+        <!-- Spring Security: adiciona autenticação e autorização na aplicação -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- Dependência para manipular tokens JWT -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+
+        <!-- Implementação da API JWT, necessária em tempo de execução para gerar e validar os tokens -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.5</version>
+            <scope>runtime</scope> <!-- Somente necessário em tempo de execução, não na compilação -->
+        </dependency>
+
+        <!-- Suporte à conversão JSON usando Jackson para os tokens JWT que contêm payloads JSON -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.11.5</version> <!-- Certifique-se de usar a versão compatível com as outras dependências JWT -->
+            <scope>runtime</scope> <!-- Somente em tempo de execução para manipulação de JSON -->
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Plugin do Spring Boot: facilita a execução e empacotamento da aplicação como um JAR autônomo -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- Maven Surefire Plugin: usado para rodar testes automatizados -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version> <!-- Versão do Surefire Plugin -->
+                <configuration>
+                    <skipTests>false</skipTests> <!-- Configuração para pular os testes automaticamente -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>test</id>
+            <properties>
+                <skipTests>false</skipTests> <!-- Habilita a execução de testes no profile "test" -->
+            </properties>
+        </profile>
+    </profiles>
+</project>
